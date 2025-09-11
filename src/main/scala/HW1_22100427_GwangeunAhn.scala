@@ -5,8 +5,8 @@
 // Time taken: about 3 mins
 // [contract] dollarToWon: Int-> Int
 // [purpose] To convert dollar to Won
-// [tests] dollarToWon(1) => 1393)
-//         dollarToWon(2) => 2786)
+// [tests] dollarToWon(1) => 1393
+//         dollarToWon(2) => 2786
 def dollarToWon(dollar: Int): Int = {
   dollar * 1393
 }
@@ -16,8 +16,8 @@ def dollarToWon(dollar: Int): Int = {
 // Time taken: about 8 mins
 // [contract] max: Int Int-> Int
 // [purpose] Find the greater of the two integers
-// [tests] max(1, 2) => 2)
-//         max(4, 3) => 4)
+// [tests] max(1, 2) => 2
+//         max(4, 3) => 4
 def max(a: Int, b:Int): Int = a match {
   case x if x > b => x
   case _ => b
@@ -35,10 +35,22 @@ def maxOfThreeIntegers(a: Int, b: Int, c: Int): Int = {
 // Time taken: about 6 mins
 // [contract] volumeCuboid: Int Int Int-> Int
 // [purpose] To calculate the volum of a cuboid
-// [tests] volumeCuboid(3, 3, 3) => 27)
-//         volumeCuboid(4, 3, 5) => 60)
+// [tests] volumeCuboid(3, 3, 3) => 27
+//         volumeCuboid(4, 3, 5) => 60
 def volumeCuboid(length: Int, breadth: Int, height: Int): Int = {
   length * breadth * height
+}
+
+// Problem 4:
+// Solved by myself: Y
+// Time taken: about 8 mins
+// [contract] gcd: Int Int -> Int
+// [purpose] To calculate the greatest common divisor
+// [tests] gcd(36, 54) => 18
+//         gcd(178, 246) => 2
+def gcd(a: Int, b: Int): Int = b match {
+  case x if x == 0 => a
+  case _ => gcd(b, a%b)
 }
 
 
@@ -55,4 +67,8 @@ def volumeCuboid(length: Int, breadth: Int, height: Int): Int = {
   // Problem 3 test cases
   assert(volumeCuboid(3, 3, 3) == 27, "Test failed for volumeCuboid(3, 3, 3)")
   assert(volumeCuboid(4, 3, 5) == 60, "Test failed for volumeCuboid(4, 3, 5)")
+
+  // Problem 4 test cases
+  assert(gcd(36, 54) == 18, "Test failed for gcd(36, 54)")
+  assert(gcd(178, 246) == 2, "Test failed for gcd(178, 246)")
 }

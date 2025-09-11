@@ -43,7 +43,7 @@ def volumeCuboid(length: Int, breadth: Int, height: Int): Int = {
 
 // Problem 4:
 // Solved by myself: Y
-// Time taken: about 8 mins
+// Time taken: about 12 mins
 // [contract] gcd: Int Int -> Int
 // [purpose] To calculate the greatest common divisor
 // [tests] gcd(36, 54) => 18
@@ -51,6 +51,25 @@ def volumeCuboid(length: Int, breadth: Int, height: Int): Int = {
 def gcd(a: Int, b: Int): Int = b match {
   case x if x == 0 => a
   case _ => gcd(b, a%b)
+}
+
+// Problem 5:
+// Solved by myself: Y
+// Time taken: about 23 mins
+// [contract] factorial: Int -> Int
+// [purpose] To calculate the factorial
+// [tests] factorial(5) => 120
+//         factorial(7) => 5040
+def factorial(num: Int): Int = num match {
+  case x if x == 0 => 1
+  case _ => num * factorial(num - 1)
+}
+// [contract] factorial: Int Int -> Int
+// [purpose] To calculate the combination
+// [tests] combination(7, 5) => 21
+//         combination(5, 2) => 10
+def combination(n: Int, k: Int): Int = {
+  factorial(n)/(factorial(k)*factorial(n-k))
 }
 
 
@@ -71,4 +90,8 @@ def gcd(a: Int, b: Int): Int = b match {
   // Problem 4 test cases
   assert(gcd(36, 54) == 18, "Test failed for gcd(36, 54)")
   assert(gcd(178, 246) == 2, "Test failed for gcd(178, 246)")
+
+  // Problem 5 test cases
+  assert(combination(7, 5) == 21, "Test failed for combination(7, 5)")
+  assert(combination(5, 2) == 10, "Test failed for combination(5, 2)")
 }

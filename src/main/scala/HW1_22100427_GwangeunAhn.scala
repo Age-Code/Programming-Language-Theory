@@ -64,7 +64,7 @@ def factorial(num: Int): Int = num match {
   case x if x == 0 => 1
   case _ => num * factorial(num - 1)
 }
-// [contract] factorial: Int Int -> Int
+// [contract] combination: Int Int -> Int
 // [purpose] To calculate the combination
 // [tests] combination(7, 5) => 21
 //         combination(5, 2) => 10
@@ -72,7 +72,46 @@ def combination(n: Int, k: Int): Int = {
   factorial(n)/(factorial(k)*factorial(n-k))
 }
 
+// Problem 6:
+// Solved by myself: Y
+// Time taken: about 20 mins
+trait Vehicle
+case class Bicycle(wheels: Int) extends Vehicle
+case class Car(wheels: Int, windows: Int) extends Vehicle
+case class Airplane(wheels: Int, windows: Int, engines: Int) extends Vehicle
 
+// [contract] vehicleTax: Vehicle -> Int
+// [purpose] To calculate the vehicleTax
+// [tests] vehicleTax(Bicycle(2)) => 4
+//         vehicleTax(Car(4, 8)) => 16
+val wheelTax = 2
+val windowTax = 1
+val engineTax = 3
+def vehicleTax(ve: Vehicle): Int = ve match{
+  case Bicycle(a) => a*wheelTax
+  case Car(a, b) => (a*wheelTax)+(b*windowTax)
+  case Airplane(a, b, c) => (a*wheelTax)+(b*windowTax)+(c*engineTax)
+}
+
+// [contract] isVehicleSafeBoolean: Vehicle -> Boolean
+// [purpose] To calculate the isVehicleSafeBoolean
+// [tests] isVehicleSafeBoolean(Bicycle(2)) => true
+//         isVehicleSafeBoolean(Car(2, 1)) => false
+def isVehicleSafeBoolean(ve: Vehicle): Boolean = ve match{
+  case Bicycle(a) => a<4
+  case Car(a, b) => a>3 && b>2
+  case Airplane(a, b, c) => a>2 && b>10 && c>1
+
+}
+
+// [contract] isVehicleSafe: Vehicle -> String
+// [purpose] To calculate the isVehicleSafe
+// [tests] isVehicleSafe(Bicycle(2)) => "safe"
+//         isVehicleSafe(Car(2, 1)) => "unsafe"
+def isVehicleSafe(ve: Vehicle): String = ve match{
+  case ve if isVehicleSafeBoolean(ve) => "safe"
+  case _ => "unsafe"
+}
 
 @main def run(): Unit = {
   // Problem 1 test cases

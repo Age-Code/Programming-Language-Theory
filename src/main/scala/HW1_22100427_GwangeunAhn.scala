@@ -109,8 +109,51 @@ def isVehicleSafeBoolean(ve: Vehicle): Boolean = ve match{
 // [tests] isVehicleSafe(Bicycle(2)) => "safe"
 //         isVehicleSafe(Car(2, 1)) => "unsafe"
 def isVehicleSafe(ve: Vehicle): String = ve match{
-  case ve if isVehicleSafeBoolean(ve) => "safe"
+  case x if isVehicleSafeBoolean(x) => "safe"
   case _ => "unsafe"
+}
+
+// Problem 7:
+// Solved by myself: Y
+// Time taken: about 34 mins
+// [contract] isVehicleSafe: Vehicle -> String
+// [purpose] To calculate the isVehicleSafe
+// [tests] isVehicleSafe(Bicycle(2)) => "safe"
+//         isVehicleSafe(Car(2, 1)) => "unsafe"
+def alphabetToName(elem: Char): String = elem match{
+  case 'a' => "alice"
+  case 'c' => "cherry"
+  case 'j' => "jc"
+  case 'k' => "kate"
+  case _ => "unnamed"
+}
+
+// [contract] isVehicleSafe: Vehicle -> String
+// [purpose] To calculate the isVehicleSafe
+// [tests] isVehicleSafe(Bicycle(2)) => "safe"
+//         isVehicleSafe(Car(2, 1)) => "unsafe"
+def nameAlphabet(list: List[Char]): List[String] = {
+  list.map(elem => alphabetToName(elem))
+}
+
+// Problem 8:
+// Solved by myself: Y
+// Time taken: about 34 mins
+// [contract] isVehicleSafe: Vehicle -> String
+// [purpose] To calculate the isVehicleSafe
+// [tests] isVehicleSafe(Bicycle(2)) => "safe"
+//         isVehicleSafe(Car(2, 1)) => "unsafe"
+def updateElem(oldName: String, newName: String, elem: String): String = elem match{
+  case elem if elem.equals(oldName) => newName
+  case _ => elem
+}
+
+// [contract] isVehicleSafe: Vehicle -> String
+// [purpose] To calculate the isVehicleSafe
+// [tests] isVehicleSafe(Bicycle(2)) => "safe"
+//         isVehicleSafe(Car(2, 1)) => "unsafe"
+def updateName(oldName: String, newName: String, list: List[String]): List[String] = {
+  list.map(elem => updateElem(oldName, newName, elem))
 }
 
 @main def run(): Unit = {
@@ -133,4 +176,6 @@ def isVehicleSafe(ve: Vehicle): String = ve match{
   // Problem 5 test cases
   assert(combination(7, 5) == 21, "Test failed for combination(7, 5)")
   assert(combination(5, 2) == 10, "Test failed for combination(5, 2)")
+
+  println(updateName("cherry","claire",List("jc","cherry","kate")))
 }

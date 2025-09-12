@@ -94,7 +94,7 @@ def vehicleTax(ve: Vehicle): Int = ve match{
 }
 
 // [contract] isVehicleSafeBoolean: Vehicle -> Boolean
-// [purpose] To calculate the isVehicleSafeBoolean
+// [purpose] To check the vehicle safety
 // [tests] isVehicleSafeBoolean(Bicycle(2)) => true
 //         isVehicleSafeBoolean(Car(2, 1)) => false
 def isVehicleSafeBoolean(ve: Vehicle): Boolean = ve match{
@@ -105,7 +105,7 @@ def isVehicleSafeBoolean(ve: Vehicle): Boolean = ve match{
 }
 
 // [contract] isVehicleSafe: Vehicle -> String
-// [purpose] To calculate the isVehicleSafe
+// [purpose] To convert the isVehicleSafeBoolean result to String
 // [tests] isVehicleSafe(Bicycle(2)) => "safe"
 //         isVehicleSafe(Car(2, 1)) => "unsafe"
 def isVehicleSafe(ve: Vehicle): String = ve match{
@@ -116,10 +116,10 @@ def isVehicleSafe(ve: Vehicle): String = ve match{
 // Problem 7:
 // Solved by myself: Y
 // Time taken: about 34 mins
-// [contract] isVehicleSafe: Vehicle -> String
-// [purpose] To calculate the isVehicleSafe
-// [tests] isVehicleSafe(Bicycle(2)) => "safe"
-//         isVehicleSafe(Car(2, 1)) => "unsafe"
+// [contract] alphabetToName: Char -> String
+// [purpose] To convert Alphabet to Name
+// [tests] alphabetToName('j') => "jc"
+//         alphabetToName('b') => "unnamed"
 def alphabetToName(elem: Char): String = elem match{
   case 'a' => "alice"
   case 'c' => "cherry"
@@ -128,32 +128,25 @@ def alphabetToName(elem: Char): String = elem match{
   case _ => "unnamed"
 }
 
-// [contract] isVehicleSafe: Vehicle -> String
-// [purpose] To calculate the isVehicleSafe
-// [tests] isVehicleSafe(Bicycle(2)) => "safe"
-//         isVehicleSafe(Car(2, 1)) => "unsafe"
+// [contract] nameAlphabet: List[Char] -> List[String]
+// [purpose] To convert Alphabet list to Name list
+// [tests] nameAlphabet(List('a','b','c')) => List("alice","unnamed","cherry")
+//         nameAlphabet(List('c','j','k')) => List("cherry","jc","kate")
 def nameAlphabet(list: List[Char]): List[String] = {
   list.map(elem => alphabetToName(elem))
 }
 
 // Problem 8:
 // Solved by myself: Y
-// Time taken: about 34 mins
-// [contract] isVehicleSafe: Vehicle -> String
-// [purpose] To calculate the isVehicleSafe
-// [tests] isVehicleSafe(Bicycle(2)) => "safe"
-//         isVehicleSafe(Car(2, 1)) => "unsafe"
-def updateElem(oldName: String, newName: String, elem: String): String = elem match{
-  case elem if elem.equals(oldName) => newName
-  case _ => elem
-}
-
-// [contract] isVehicleSafe: Vehicle -> String
-// [purpose] To calculate the isVehicleSafe
-// [tests] isVehicleSafe(Bicycle(2)) => "safe"
-//         isVehicleSafe(Car(2, 1)) => "unsafe"
-def updateName(oldName: String, newName: String, list: List[String]): List[String] = {
-  list.map(elem => updateElem(oldName, newName, elem))
+// Time taken: about 48 mins
+// [contract] updateName: String String List[String] -> List[String]
+// [purpose] To convert the oldName  to the newName in List
+// [tests] updateName("cherry", "claire", List("jc", "cherry", "kate")) => List("jc", "claire", "kate")
+//         updateName("kate", "gwang", List("jc", "cherry", "kate")) => List("jc", "cherry", "gwang")
+def updateName(oldName: String, newName: String, list: List[String]): List[String] = list.length match {
+  case 0 => Nil
+  case _ if(list.head.equals(oldName)) => newName :: updateName(oldName, newName, list.tail)
+  case _ => list.head :: updateName(oldName, newName, list.tail)
 }
 
 @main def run(): Unit = {
@@ -162,6 +155,9 @@ def updateName(oldName: String, newName: String, list: List[String]): List[Strin
   assert(dollarToWon(2) == 2786, "Test failed for dollarToWon(2)")
 
   // Problem 2 test cases
+  assert(max(1, 2) == 2, "Test failed for max(1, 2) == 2")
+  assert(max(4, 3) == 4, "Test failed for maxOfThreeIntegers(5, 6, 4)")
+
   assert(maxOfThreeIntegers(1, 2, 3) == 3, "Test failed for maxOfThreeIntegers(1, 2, 3)")
   assert(maxOfThreeIntegers(5, 6, 4) == 6, "Test failed for maxOfThreeIntegers(5, 6, 4)")
 
@@ -174,8 +170,30 @@ def updateName(oldName: String, newName: String, list: List[String]): List[Strin
   assert(gcd(178, 246) == 2, "Test failed for gcd(178, 246)")
 
   // Problem 5 test cases
+  assert(factorial(5) == 120, "Test failed for factorial(5)")
+  assert(factorial(7) == 5040, "Test failed for factorial(7)")
+
   assert(combination(7, 5) == 21, "Test failed for combination(7, 5)")
   assert(combination(5, 2) == 10, "Test failed for combination(5, 2)")
 
-  println(updateName("cherry","claire",List("jc","cherry","kate")))
+  // Problem 6 test cases
+  assert(vehicleTax(Bicycle(2)) == 4, "Test failed for vehicleTax(Bicycle(2))")
+  assert(vehicleTax(Car(4, 8)) == 16, "Test failed for vehicleTax(Car(4, 8))")
+
+  assert(isVehicleSafeBoolean(Bicycle(2)) == true, "Test failed for isVehicleSafeBoolean(Bicycle(2))")
+  assert(isVehicleSafeBoolean(Car(2, 1)) == false, "Test failed for isVehicleSafeBoolean(Car(2, 1))")
+
+  assert(isVehicleSafe(Bicycle(2)) == "safe", "Test failed for isVehicleSafe(Bicycle(2))")
+  assert(isVehicleSafe(Car(2, 1)) == "unsafe", "Test failed for isVehicleSafe(Car(2, 1))")
+
+  // Problem 7 test cases
+  assert(alphabetToName('j') == "jc", "Test failed for alphabetToName('j')")
+  assert(alphabetToName('b') == "unnamed", "Test failed for alphabetToName('b')")
+
+  assert(nameAlphabet(List('a','b','c')) == List("alice","unnamed","cherry"), "Test failed for nameAlphabet(List('a','b','c'))")
+  assert(nameAlphabet(List('c','j','k')) == List("cherry","jc","kate"), "Test failed for nameAlphabet(List('c','j','k'))")
+
+  // Problem 8 test cases
+  assert(updateName("cherry", "claire", List("jc", "cherry", "kate")) == List("jc", "claire", "kate"), "Test failed for updateName(\"cherry\", \"claire\", List(\"jc\", \"cherry\", \"kate\"))")
+  assert(updateName("kate", "gwang", List("jc", "cherry", "kate")) == List("jc", "cherry", "gwang"), "Test failed for updateName(\"kate\", \"gwang\", List(\"jc\", \"cherry\", \"kate\"))")
 }

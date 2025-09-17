@@ -1,7 +1,8 @@
-// The number of problems solved by myself: 6 out of 8
+// The number of problems solved by myself: 8 out of 8
 
 // Problem 1:
 // Solved by myself: Y
+// (I referred to the course materials)
 // Time taken: about 3 mins
 // [contract] dollarToWon: Int-> Int
 // [purpose] To convert dollar to Won
@@ -13,6 +14,7 @@ def dollarToWon(dollar: Int): Int = {
 
 // Problem 2:
 // Solved by myself: Y
+// (I referred to the course materials)
 // Time taken: about 8 mins
 // [contract] max: Int Int-> Int
 // [purpose] Find the greater of the two integers
@@ -22,19 +24,20 @@ def max(a: Int, b:Int): Int = a match {
   case x if x > b => x
   case _ => b
 }
-// [contract] mileToKm: Int Int Int-> Int
+// [contract] maxOfThreeIntegers: Int Int Int-> Int
 // [purpose] Find the greater of the three integers
 // [tests] maxOfThreeIntegers(1, 2, 3) => 3
 //         maxOfThreeIntegers(5, 6, 4) => 6
 def maxOfThreeIntegers(a: Int, b: Int, c: Int): Int = {
-  max(max(a,b),max(b,c))
+  max(max(a,b),c)
 }
 
-// Problem 3:
+// Problem 3:volumeCuboid
 // Solved by myself: Y
 // Time taken: about 6 mins
+// (I referred to the course materials)
 // [contract] volumeCuboid: Int Int Int-> Int
-// [purpose] To calculate the volum of a cuboid
+// [purpose] To calculate the volume of a cuboid
 // [tests] volumeCuboid(3, 3, 3) => 27
 //         volumeCuboid(4, 3, 5) => 60
 def volumeCuboid(length: Int, breadth: Int, height: Int): Int = {
@@ -43,6 +46,7 @@ def volumeCuboid(length: Int, breadth: Int, height: Int): Int = {
 
 // Problem 4:
 // Solved by myself: Y
+// (I referred to the course materials)
 // Time taken: about 12 mins
 // [contract] gcd: Int Int -> Int
 // [purpose] To calculate the greatest common divisor
@@ -55,6 +59,7 @@ def gcd(a: Int, b: Int): Int = b match {
 
 // Problem 5:
 // Solved by myself: Y
+// (I referred to url (https://en.wikipedia.org/wiki/Combination) in HW1 pdf.)
 // Time taken: about 23 mins
 // [contract] factorial: Int -> Int
 // [purpose] To calculate the factorial
@@ -74,47 +79,37 @@ def combination(n: Int, k: Int): Int = {
 
 // Problem 6:
 // Solved by myself: Y
+// (I referred to the course materials)
 // Time taken: about 20 mins
 trait Vehicle
 case class Bicycle(wheels: Int) extends Vehicle
 case class Car(wheels: Int, windows: Int) extends Vehicle
 case class Airplane(wheels: Int, windows: Int, engines: Int) extends Vehicle
 
-// [contract] vehicleTax: Vehicle -> Int
+// [contract] vehicleTax: Vehicle Int Int Int -> Int
 // [purpose] To calculate the vehicleTax
-// [tests] vehicleTax(Bicycle(2)) => 4
-//         vehicleTax(Car(4, 8)) => 16
-val wheelTax = 2
-val windowTax = 1
-val engineTax = 3
-def vehicleTax(ve: Vehicle): Int = ve match{
+// [tests] vehicleTax(Bicycle(2), 2, 1, 3) => 4
+//         vehicleTax(Car(4, 8), 3, 3, 3) => 36
+def vehicleTax(ve: Vehicle, wheelTax: Int, windowTax: Int, engineTax: Int): Int = ve match{
   case Bicycle(a) => a*wheelTax
   case Car(a, b) => (a*wheelTax)+(b*windowTax)
   case Airplane(a, b, c) => (a*wheelTax)+(b*windowTax)+(c*engineTax)
 }
 
-// [contract] isVehicleSafeBoolean: Vehicle -> Boolean
-// [purpose] To check the vehicle safety
-// [tests] isVehicleSafeBoolean(Bicycle(2)) => true
-//         isVehicleSafeBoolean(Car(2, 1)) => false
-def isVehicleSafeBoolean(ve: Vehicle): Boolean = ve match{
-  case Bicycle(a) => a<4
-  case Car(a, b) => a>3 && b>2
-  case Airplane(a, b, c) => a>2 && b>10 && c>1
-
-}
-
 // [contract] isVehicleSafe: Vehicle -> String
-// [purpose] To convert the isVehicleSafeBoolean result to String
+// [purpose] To check the vehicle safety
 // [tests] isVehicleSafe(Bicycle(2)) => "safe"
 //         isVehicleSafe(Car(2, 1)) => "unsafe"
 def isVehicleSafe(ve: Vehicle): String = ve match{
-  case x if isVehicleSafeBoolean(x) => "safe"
+  case Bicycle(a) if a<4 => "safe"
+  case Car(a, b) if a>3 && b>2 => "safe"
+  case Airplane(a, b, c) if a>2 && b>10 && c>1 => "safe"
   case _ => "unsafe"
 }
 
 // Problem 7:
 // Solved by myself: Y
+// (I referred to url (https://www.scala-lang.org/api/current/scala/collection/immutable/List.html) in course material.)
 // Time taken: about 34 mins
 // [contract] alphabetToName: Char -> String
 // [purpose] To convert Alphabet to Name
@@ -138,6 +133,7 @@ def nameAlphabet(list: List[Char]): List[String] = {
 
 // Problem 8:
 // Solved by myself: Y
+// (I referred to url (https://www.scala-lang.org/api/current/scala/collection/immutable/List.html) in course material.)
 // Time taken: about 48 mins
 // [contract] updateName: String String List[String] -> List[String]
 // [purpose] To convert the oldName  to the newName in List
@@ -177,11 +173,8 @@ def updateName(oldName: String, newName: String, list: List[String]): List[Strin
   assert(combination(5, 2) == 10, "Test failed for combination(5, 2)")
 
   // Problem 6 test cases
-  assert(vehicleTax(Bicycle(2)) == 4, "Test failed for vehicleTax(Bicycle(2))")
-  assert(vehicleTax(Car(4, 8)) == 16, "Test failed for vehicleTax(Car(4, 8))")
-
-  assert(isVehicleSafeBoolean(Bicycle(2)) == true, "Test failed for isVehicleSafeBoolean(Bicycle(2))")
-  assert(isVehicleSafeBoolean(Car(2, 1)) == false, "Test failed for isVehicleSafeBoolean(Car(2, 1))")
+  assert(vehicleTax(Bicycle(2), 2, 1, 3) == 4, "Test failed for vehicleTax(Bicycle(2), 2, 1, 3)")
+  assert(vehicleTax(Car(4, 8), 3, 3, 3) == 36, "Test failed for vehicleTax(Car(4, 8), 3, 3, 3)")
 
   assert(isVehicleSafe(Bicycle(2)) == "safe", "Test failed for isVehicleSafe(Bicycle(2))")
   assert(isVehicleSafe(Car(2, 1)) == "unsafe", "Test failed for isVehicleSafe(Car(2, 1))")

@@ -39,20 +39,20 @@ def interp(expr: Expr): Int = expr match {
 @main def run(): Unit = {
   
   // This, "{+ 3 {- 8 2}}, is code written in our toy language!
-  //val codeInConcreteSyntax = "{+ 3 {- 8 2}}"
+  val codeInConcreteSyntax = "{+ 3 {- 8 2}}"
   
   // Parse the code to convert to abstract syntax
-  //val abstracSytaxOfCode = parse(codeInConcreteSyntax)
+  val abstracSytaxOfCode = parse(codeInConcreteSyntax)
   
   // It leads to 9 as a result.
-  //println(interp(abstracSytaxOfCode ))
+  println(interp(abstracSytaxOfCode))
   
   // println(parse("3"))
-  println(parse("{+ 3 4}"))
+  // println(parse("{+ 3 4}"))
   println(parse("{+ {- 3 4} 7}")) // ((3 - 4) + 7)
-  //println(parse("{- 5 1 2}"))
+  // println(parse("{- 5 1 2}"))
   
-  // assert(interp("3")) == 3, "Test failed! interp(parse(\"3\")) == 3")
-  // assert(interp("{+ 3 4}")) == 7, "Test failed! interp(parse(\"{+ 3 4}\")) == 7")
-  // assert(interp("{+ {- 3 4} 7}")) == 6, "Test failed! interp(parse(\"{+ {- 3 4} 7}\")) == 6")
+  assert(interp(parse("3")) == 3, "Test failed! interp(parse(\"3\")) == 3")
+  assert(interp(parse("{+ 3 4}")) == 7, "Test failed! interp(parse(\"{+ 3 4}\")) == 7")
+  assert(interp(parse("{+ {- 3 4} 7}")) == 6, "Test failed! interp(parse(\"{+ {- 3 4} 7}\")) == 6")
 }

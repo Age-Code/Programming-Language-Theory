@@ -2,7 +2,7 @@
 // Solved by myself: Y
 // (I referred to the course materials)
 // 06-07-08-Substitution, 09-10-Functions, 11-Deferring Substitution, 12-13-14-First-Class Functions
-// Time taken: about 78 mins
+// Time taken: about 96 mins
 
 import $ivy.`org.scala-lang.modules::scala-parser-combinators:2.4.0` // Used by Ammonite
 import scala.util.parsing.combinator._
@@ -23,8 +23,8 @@ class SimpleException(message: String) extends RuntimeException(message) {
 
 // [contract] parse: String -> Expr
 // [purpose] To convert concrete syntax string into an Expr abstract syntax tree
-// [tests] parse("{with {x 3} {+ x x}}") => App(Fun(Id(x), Add(Id(x), Id(x))), Num(3))
-//         parse("{with {y 10} {fun {x} {+ y x}}}") => App(Fun(Id(y),Fun(Id(x),Add(Id(y),Id(x)))),Num(10))
+// [tests] parse("{with {x 3} {+ x x}}") => App(Fun(Id("x"), Add(Id("x"), Id("x"))), Num(3))
+//         parse("{with {y 10} {fun {x} {+ y x}}}") => App(Fun(Id("y"),Fun(Id("x"),Add(Id("y"),Id("x")))),Num(10)
 def parse(input: String): Expr = {
     object Parser extends RegexParsers {
         def int: Parser[Int] = """\d+""".r ^^ { _.toInt }
@@ -96,8 +96,8 @@ def interp(expr: Expr, ds: DefrdSub): ExprValue = expr match {
 @main def run(): Unit = {
 
     // parse
-    assert(parse("{with {x 3} {+ x x}}") == App(Fun(Id(x), Add(Id(x), Id(x))), Num(3)), "Test failed! parse(\"{with {x 3} {+ x x}}\") == App(Fun(Id(x), Add(Id(x), Id(x))), Num(3))")
-    assert(parse("{with {y 10} {fun {x} {+ y x}}}") == App(Fun(Id(y),Fun(Id(x),Add(Id(y),Id(x)))),Num(10)), "Test failed! parse(\"{with {y 10} {fun {x} {+ y x}}}\") == App(Fun(Id(y),Fun(Id(x),Add(Id(y),Id(x)))),Num(10))")
+    assert(parse("{with {x 3} {+ x x}}") == App(Fun(Id("x"), Add(Id("x"), Id("x"))), Num(3)), "Test failed! parse(\"{with {x 3} {+ x x}}\") == App(Fun(Id(\"x\"), Add(Id(\"x\"), Id(\"x\"))), Num(3))")
+    assert(parse("{with {y 10} {fun {x} {+ y x}}}") == App(Fun(Id("y"),Fun(Id("x"),Add(Id("y"),Id("x")))),Num(10)), "Test failed! parse(\"{with {y 10} {fun {x} {+ y x}}}\") == App(Fun(Id(\"y\"),Fun(Id(\"x\"),Add(Id(\"y\"),Id(\"x\"))),Num(10))")
 
     // numOperator
     assert(numOperator(_+_) (NumV(1), NumV(2)) == NumV(3), "Test failed! numOperator(_+_) (NumV(1), NumV(2)) == NumV(3)")
